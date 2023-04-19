@@ -10,10 +10,10 @@ class TicTacToe extends StatefulWidget {
 }
 
 class _TicTacToeState extends State<TicTacToe> {
-  List<String> game = List.filled(9, "1");
+  List<String> game = List.filled(9, " ");
   String player1 = "X";
   String player2 = "O";
-  String currentPlayer = "";
+  String currentPlayer = " ";
 
   void handleMove(int index) {
 
@@ -74,6 +74,12 @@ class _TicTacToeState extends State<TicTacToe> {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
+                  style: ButtonStyle(shape:MaterialStateProperty.all<RoundedRectangleBorder>
+                    (RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  )
+                  )
+                  ),
                   onPressed: () => {
                     setState(
                       () {
