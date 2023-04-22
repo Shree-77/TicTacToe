@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MaterialApp(home: TicTacToe()));
+void main() => runApp(const MaterialApp(home: TicTacToe()));
 
 class TicTacToe extends StatefulWidget {
   const TicTacToe({Key? key}) : super(key: key);
@@ -11,24 +11,23 @@ class TicTacToe extends StatefulWidget {
 
 class _TicTacToeState extends State<TicTacToe> {
   List<String> game = List.filled(9, " ");
-  String player1 = "X";
+  static String player1 = "X";
   String player2 = "O";
-  String currentPlayer = " ";
+  String currentPlayer = player1;
 
   void handleMove(int index) {
-
     setState(() {
+      //print(currentPlayer);
       game[index] = currentPlayer;
-      if(currentPlayer==player1){
-        currentPlayer=player2;
-      }else{
-        currentPlayer=player1;
+      if (currentPlayer == player1) {
+        currentPlayer = player2;
+      } else {
+        currentPlayer = player1;
       }
     });
   }
 
   bool checkWin(String symbol) {
-
     for (int i = 0; i < 9; i += 3) {
       if (game[i] == symbol && game[i + 1] == symbol && game[i + 2] == symbol) {
         return true;
@@ -59,27 +58,26 @@ class _TicTacToeState extends State<TicTacToe> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tic Tac Toe'),
+        title: const Text('Tic Tac Toe'),
         centerTitle: true,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GridView.builder(
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3),
             shrinkWrap: true,
             itemCount: game.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                  style: ButtonStyle(shape:MaterialStateProperty.all<RoundedRectangleBorder>
-                    (RoundedRectangleBorder(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
-                  )
-                  )
-                  ),
+                  ))),
                   onPressed: () => {
                     setState(
                       () {
@@ -90,11 +88,11 @@ class _TicTacToeState extends State<TicTacToe> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text('Game Over'),
-                                  content: Text('Player 1 Wins!'),
+                                  title: const Text('Game Over'),
+                                  content: const Text('Player 1 Wins!'),
                                   actions: [
                                     ElevatedButton(
-                                      child: Text('OK'),
+                                      child: const Text('OK'),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                         setState(() {
@@ -106,17 +104,16 @@ class _TicTacToeState extends State<TicTacToe> {
                                 );
                               },
                             );
-
                           } else if (checkWin(player2)) {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text('Game Over'),
-                                  content: Text('Player 2 Wins!'),
+                                  title: const Text('Game Over'),
+                                  content: const Text('Player 2 Wins!'),
                                   actions: [
                                     ElevatedButton(
-                                      child: Text('OK'),
+                                      child: const Text('OK'),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                         setState(() {
@@ -133,11 +130,11 @@ class _TicTacToeState extends State<TicTacToe> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text('Game Over'),
-                                  content: Text('Match Tie '),
+                                  title: const Text('Game Over'),
+                                  content: const Text('Match Tie '),
                                   actions: [
                                     ElevatedButton(
-                                      child: Text('OK'),
+                                      child: const Text('OK'),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                         setState(() {
@@ -156,20 +153,21 @@ class _TicTacToeState extends State<TicTacToe> {
                   },
                   child: Text(
                     game[index],
-                    style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 80, fontWeight: FontWeight.bold),
                   ),
                 ),
               );
             },
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () => {
               setState(() {
                 ResetGame();
               })
             },
-            child: Text("Reset Game"),
+            child: const Text("Reset Game"),
           ),
         ],
       ),
